@@ -1,6 +1,7 @@
 FROM maven:3.3-jdk-8 AS build
 WORKDIR /code
 COPY . .
+RUN ulimit -n 65536
 RUN ./mvnw package
 
 FROM openjdk:8-jre-alpine
