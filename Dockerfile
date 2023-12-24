@@ -1,7 +1,11 @@
 FROM nginx:latest AS build
 WORKDIR /code
 COPY . .
-ENV JAVA_HOME="/usr/lib/jvm/java-1.17.0-openjdk-amd64"
+RUN apt-get update && \
+    apt-get install -y curl \
+    wget \
+    openjdk-8-jdk
+ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre/bin/java
 RUN ./mvnw package
 
 FROM openjdk:8-jre-alpine
