@@ -1,7 +1,7 @@
-FROM nginx:latest AS build
+FROM maven:3.8.4-openjdk-11-slim AS build
 WORKDIR /code
 COPY . .
-ENV JAVA_HOME=/usr/lib/jvm/java-1.17.0-openjdk-amd64/bin
+ENV MAVEN_OPTS="-Xmx512m"
 RUN ./mvnw package
 
 FROM openjdk:8-jre-alpine
