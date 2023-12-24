@@ -8,6 +8,5 @@ FROM openjdk:8-jre-alpine
 WORKDIR /code
 RUN ls
 COPY --from=build /code/target/*.jar /code/
-WORKDIR /code
 EXPOSE 8081
 ENTRYPOINT ["java", "-jar", "app.jar"]
