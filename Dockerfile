@@ -1,4 +1,4 @@
-FROM maven:3.3-jdk-8 AS build
+FROM nginx:latest AS build
 WORKDIR /code
 COPY . .
 RUN ulimit -n 65536
