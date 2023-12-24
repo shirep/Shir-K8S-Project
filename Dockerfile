@@ -1,7 +1,7 @@
 FROM maven:3.3-jdk-8 AS build
 WORKDIR /code
 COPY . .
-RUN ./mvnw package
+RUN ./mvnw --no-transfer-progress -T 1C package
 
 FROM openjdk:8-jre-alpine
 COPY --from=build /code/target/*.jar /code/app.jar
