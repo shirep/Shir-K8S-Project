@@ -1,7 +1,7 @@
 FROM maven:3.3-jdk-8 AS build
 WORKDIR /code
 COPY . .
-ENV MAVEN_OPTS="-Xmx2g"
+ENV MAVEN_OPTS="-Xmx8g"
 RUN ./mvnw package
 
 FROM openjdk:8-jre-alpine
