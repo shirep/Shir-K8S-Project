@@ -1,6 +1,7 @@
 FROM nginx:latest AS build
 WORKDIR /code
 COPY . .
+RUN PWD
 RUN ./mvnw package
 
 FROM openjdk:8-jre-alpine
