@@ -1,7 +1,6 @@
 FROM nginx:latest AS build
 WORKDIR /code
 COPY . .
-ENV JAVA_HOME=/usr/lib/jvm/
 RUN ./mvnw package
 
 FROM openjdk:8-jre-alpine
