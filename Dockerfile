@@ -1,7 +1,7 @@
 FROM maven:3.3-jdk-8 AS build
 WORKDIR /code
 COPY . .
-RUN ulimit -n 65536
+ENV MAVEN_OPTS="-Xmx2g"
 RUN ./mvnw package
 
 FROM openjdk:8-jre-alpine
