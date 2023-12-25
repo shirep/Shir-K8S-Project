@@ -8,7 +8,7 @@ RUN ls
 RUN ./mvnw -e -X package
 RUN ls
 
-FROM openjdk:17-jre-alpine
+FROM openjdk:8-jre-alpine
 WORKDIR /code
 RUN ls
 COPY --from=build /code/target/*.jar /code/
