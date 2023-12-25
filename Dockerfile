@@ -5,7 +5,7 @@ ENV JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64
 RUN ls
 COPY . .
 RUN ls
-RUN ./mvnw package
+RUN ./mvnw -e -X package
 RUN ls
 
 FROM openjdk:8-jre-alpine
