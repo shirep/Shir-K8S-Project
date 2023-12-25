@@ -2,7 +2,9 @@ FROM maven:3.8.4-openjdk-11-slim AS build
 WORKDIR /code
 COPY . .
 ENV MAVEN_OPTS="-Xmx512m"
+RUN ls
 CMD ["./mvnw", "package"]
+RUN ls
 
 FROM openjdk:8-jre-alpine
 WORKDIR /code
