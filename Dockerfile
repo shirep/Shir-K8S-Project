@@ -3,7 +3,7 @@ WORKDIR /code
 COPY . .
 ENV MAVEN_OPTS="-Xmx512m"
 RUN ls
-ENTRYPOINT ["./mvnw", "package"]
+RUN ./mvnw package
 RUN ls
 
 FROM openjdk:8-jre-alpine
