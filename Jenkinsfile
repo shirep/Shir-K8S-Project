@@ -31,21 +31,15 @@ pipeline {
             }
         }
 
-        stage('Login to Docker Hub') {         
+        stage('Login + Push Image to Docker Hub') {         
             steps{
 		        script {
-		            sh 'echo $DOCKERHUB_CREDENTIALS_PSW | docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                 
-	                echo 'Login Completed'                
-                }           
-            } 
-        }  
-
-        stage('Push Image to Docker Hub') {         
-            steps{
-		        script {
-		            sh 'docker tag shir-java-image:$BUILD_NUMBER shirep/shir-java-image:$BUILD_NUMBER'
-                    sh 'docker push shirep/shir-java-image:$BUILD_NUMBER'               
-                    echo 'Push Image Completed'        
+                                withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: DOCKERHUB_CREDENTIALS, usernameVariable: 'DOCKER_HUB_USERNAME', passwordVariable: 'DOCKER_HUB_PASSWORD']]) {
+                                        sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}"
+		                        sh 'docker tag shir-java-image:$BUILD_NUMBER shirep/shir-java-image:$BUILD_NUMBER'
+                                        sh 'docker push shirep/shir-java-image:$BUILD_NUMBER'               
+                                        echo 'Push Image Completed'
+                                }
                 }           
             } 
         }
