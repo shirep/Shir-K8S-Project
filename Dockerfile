@@ -1,7 +1,6 @@
-FROM maven:3.8.4-openjdk-11-slim AS build
+FROM ubuntu:latest AS build
 WORKDIR /code
 COPY . .
-ENV MAVEN_OPTS="-Xmx512m"
 RUN ls
 RUN ./mvnw package
 RUN ls
