@@ -26,7 +26,7 @@ pipeline {
         stage('Docker Run') {  
             steps{
 		        script {
-                    sh 'docker run -itd --name shir-container-$BUILD_NUMBER shirep/shir-java-image:$BUILD_NUMBER'
+                    sh 'docker run -itd --name shir-container-$BUILD_NUMBER shir-java-image:$BUILD_NUMBER'
                 }
             }
         }
