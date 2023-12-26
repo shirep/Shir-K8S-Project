@@ -30,16 +30,22 @@ pipeline {
                 }
             }
         }
+        stage('Login to Docker Hub') {      	
+            steps{
+                sh 'echo $DOCKERHUB_CREDENTIALS_PSW'
+                sh 'echo $DOCKERHUB_CREDENTIALS_USR'
+	        sh 'echo $DOCKERHUB_CREDENTIALS_PSW | sudo docker login -u $DOCKERHUB_CREDENTIALS_USR --password-stdin'                		
+	        echo 'Login Completed'      
+                    }           
+                }  
 
         stage('Login + Push Image to Docker Hub') {         
             steps{
 		        script {
-                    withCredentials([[$class: 'UsernamePasswordMultiBinding', credentialsId: DOCKERHUB_CREDENTIALS, usernameVariable: 'DOCKERHUB_USERNAME', passwordVariable: 'DOCKERHUB_PASSWORD']]) {
-                        sh "docker login -u ${DOCKER_HUB_USERNAME} -p ${DOCKER_HUB_PASSWORD}"
 		                sh 'docker tag shir-java-image:$BUILD_NUMBER shirep/shir-java-image:$BUILD_NUMBER'
                         sh 'docker push shirep/shir-java-image:$BUILD_NUMBER'               
                         echo 'Push Image Completed'
-                    }
+                    
                 }           
             } 
         }
