@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ include "shirchart.fullname" .}}
+spec:
+  selector:
+    matchLabels:
+      {{ include "shirchart.selectorLabels" . | nindent 6}}
+  template:
+    metadata:
+      labels:
+        {{ include "shirchart.labels" . | nindent 8}}
+    spec:
+      containers:
+      - name: {{ include "shirchart.fullname" .}}
+        image: {{.Values.image.repository}}
+        resources: {}
+        ports:
+        - containerPort: {{.Values.service.port}}
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "shirchart.fullname" .}}
+spec:
+  selector:
+    {{ include "shirchart.selectorLabels" . | nindent 4}}
+  ports:
+  - port: {{.Values.service.port}}
+    targetPort: {{.Values.service.targetPort}}
