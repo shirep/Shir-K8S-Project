@@ -1,0 +1,22 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{.Values.namemysql}}
+spec:
+  selector:
+    matchLabels:
+      {{ include "shirchart.selectorLabels" . | nindent 6}}
+  template:
+    metadata:
+      labels:
+        {{ include "shirchart.labels" . | nindent 8}}
+    spec:
+      containers:
+      - name: {{.Values.namemysql}}
+        envFrom:
+        - configMapRef:
+            name: shir-configmap
+        image: {{.Values.mysqlImage.repository}}
+        resources: {}
+        ports:
+        - containerPort: {{.Values.mysqlService.port}}
